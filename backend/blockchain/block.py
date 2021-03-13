@@ -35,8 +35,8 @@ class Block:
             f'timestamp: {self.timestamp}, '
             f'last_hash: {self.last_hash}, '
             f'hash: {self.hash}, '
-            f'data: {self.data}), '
-            f'difficulty: {self.difficulty}), '
+            f'data: {self.data}, '
+            f'difficulty: {self.difficulty}, '
             f'nonce: {self.nonce}) '
           )
 
@@ -44,6 +44,12 @@ class Block:
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
 
+    def to_json(self):
+      """
+      Serialise the block into a dictionary of its attributes
+      """
+
+      return self.__dict__
 
     @staticmethod
     def mine_block(last_block, data):
