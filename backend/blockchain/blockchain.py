@@ -36,7 +36,7 @@ class Blockchain:
       """
       Serialize the blockchain into a list of blocks
       """
-      serialized_chain = []
+      # serialized_chain = []
 
       return list(map(lambda block: block.to_json(), self.chain))
 
