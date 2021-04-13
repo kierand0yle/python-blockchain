@@ -18,3 +18,25 @@ class TransactionPool:
       for transaction in self.transaction_map.values():
         if transaction.input['address'] == address:
           return transaction
+
+    def transaction_data(self):
+      '''
+      Return the txns of the txn pool, represented in their
+      json serialised form.
+      '''
+
+      return list(map(
+          lambda transaction: transaction.to_json(),
+          self.transaction_map.values()
+      ))
+
+    def clear_blockchain_transactions(self, blockchain):
+      '''
+      Delete blockchain recorded txns from the txns pool
+      '''
+      for block in blockchain.chain:
+        for transaction in block.data:
+          try:
+            del self.transaction_map[transaction['id']]
+          except KeyError:
+            pass
