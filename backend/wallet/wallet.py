@@ -20,15 +20,20 @@ class Wallet:
   Allows a miner to authorize txns
   '''
 
-  def __init__(self):
+  def __init__(self, blockchain=None):
+    self.blockchain = blockchain
     self.address = str(uuid.uuid4())[0:8]
-    self.balance = STARTING_BALANCE
     self.private_key = ec.generate_private_key(
       ec.SECP256K1(),
       default_backend()
       )
     self.public_key = self.private_key.public_key()
     self.serialize_public_key()
+
+  @property
+  def balance(self):
+    return Wallet.calculate_balance(self.blockchain, self.address)
+
 
   def sign(self, data):
     '''
@@ -80,6 +85,9 @@ class Wallet:
     to the address since the most recent txn by that address.
     '''
     balance = STARTING_BALANCE
+
+    if not blockchain:
+      return balance
 
     for block in blockchain.chain:
       for transaction in block.data:
