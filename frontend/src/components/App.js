@@ -4,6 +4,7 @@ import logo from '../assets/logo.png'
 import { API_BASE_URL } from '../config'
 
 import Blockchain from './Blockchain';
+import ConductTransaction from './ConductTransaction'
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
 
       <br />
       <Blockchain />
+      <br />
+      <ConductTransaction />
     </div>
   );
 }
